@@ -11,7 +11,7 @@ import time  # Для использования time.sleep()
 import os
 
 
-# --- Фикстуры ---
+# --- Фикстуры --- 
 @pytest.fixture(scope="function")
 def driver():
     """Инициализация браузера."""
@@ -34,8 +34,8 @@ def open_payment_form(driver):
     buy_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Купить")]')))
     buy_button.click()
 
-    # Даем странице секунду на отрисовку формы
-    time.sleep(1)
+    # Ждем фактической готовности формы 
+    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "form")))
 
     return wait
 
