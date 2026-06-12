@@ -360,9 +360,9 @@ def test_payment_long_name(payment_page):
 
 
 
-# ... другие импорты (By, EC и т.д.) ...
 
-# --- Вспомогательная функция (если все же нужна) ---
+
+# --- Вспомогательная функция  ---
 def clear_input_by_backspace(element):
     """Вспомогательная функция для очистки одного input-элемента с помощью BACK_SPACE."""
     element.click()
@@ -371,7 +371,7 @@ def clear_input_by_backspace(element):
         element.send_keys(Keys.BACK_SPACE)
 
 
-# --- Обновленный тест ---
+
 def test_clear_payment_form_fields(payment_page):
     """
     Тест: Проверка работы функции очистки полей формы оплаты.
@@ -389,10 +389,10 @@ def test_clear_payment_form_fields(payment_page):
         EC.element_to_be_clickable((By.CSS_SELECTOR, "input.input__control[placeholder='0000 0000 0000 0000']"))
     )
 
-    # --- ОСНОВНОЙ СПОСОБ (рекомендуемый) ---
+ 
     card_field.clear()
 
-    # --- АЛЬТЕРНАТИВНЫЙ СПОСОБ (если .clear() не работает) ---
+
     # clear_input_by_backspace(card_field)
 
     # ШАГ 3: Проверяем результат
