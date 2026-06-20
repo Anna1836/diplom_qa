@@ -14,10 +14,33 @@ def browser():
     yield driver
     driver.quit()
 
+# @pytest.fixture(autouse=True)
+# def payment_page(browser):
+#     wait = WebDriverWait(browser, 15)
+#     browser.get("http://localhost:8080/")
+#
+#     buy_btn = wait.until(
+#         EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Купить')]"))
+#     )
+#     buy_btn.click()
+#
+#     return PaymentPage(browser)
+
+
+
+
+
+# В файле conftest.py или внутри tests/
+# 1. Импортируем данные в начале файла
+from autotests_python.data.test_data import BASE_URL
+
+
 @pytest.fixture(autouse=True)
 def payment_page(browser):
     wait = WebDriverWait(browser, 15)
-    browser.get("http://localhost:8080/")
+
+    # 2. Используем константу вместо хардкода
+    browser.get(BASE_URL)
 
     buy_btn = wait.until(
         EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Купить')]"))
@@ -25,3 +48,30 @@ def payment_page(browser):
     buy_btn.click()
 
     return PaymentPage(browser)
+
+
+import pytest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from autotests_python.data.test_data import BASE_URL
+from autotests_python.pages.payment_page import PaymentPage
+
+
+# Предположим, что фикстура 'payment_page' у вас уже есть и работает для обычной покупки
+
+@pytest.fixture()
+def credit_payment_page(browser):
+    """
+    Фикстура для подготовки страницы оплаты в кредит.
+    Отличается от стандартной тем, что на странице товара выбирает способ 'В кредит'.
+    """
+    wait = WebDriverWait(browser, 15)
+    browser.get(BASE_URL)
+
+    # Находим и нажимаем кнопку "Купить в кредит" на том же уровне, что и "Купить"
+    credit_btn = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'в кредит')]"))
+    )
+    credit_btn.click()
