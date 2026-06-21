@@ -14,23 +14,7 @@ def browser():
     yield driver
     driver.quit()
 
-# @pytest.fixture(autouse=True)
-# def payment_page(browser):
-#     wait = WebDriverWait(browser, 15)
-#     browser.get("http://localhost:8080/")
-#
-#     buy_btn = wait.until(
-#         EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Купить')]"))
-#     )
-#     buy_btn.click()
-#
-#     return PaymentPage(browser)
 
-
-
-
-
-# В файле conftest.py или внутри tests/
 # 1. Импортируем данные в начале файла
 from autotests_python.data.test_data import BASE_URL
 
@@ -59,7 +43,7 @@ from autotests_python.data.test_data import BASE_URL
 from autotests_python.pages.payment_page import PaymentPage
 
 
-# Предположим, что фикстура 'payment_page' у вас уже есть и работает для обычной покупки
+
 
 @pytest.fixture()
 def credit_payment_page(browser):
@@ -70,7 +54,7 @@ def credit_payment_page(browser):
     wait = WebDriverWait(browser, 15)
     browser.get(BASE_URL)
 
-    # Находим и нажимаем кнопку "Купить в кредит" на том же уровне, что и "Купить"
+    # Находим и нажимаем кнопку "Купить в кредит" 
     credit_btn = wait.until(
         EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'в кредит')]"))
     )
